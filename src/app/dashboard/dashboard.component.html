@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Tickets</h1>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Type</th>
+          <th>Id</th>
+          <th>Summary</th>
+          <th>Priority</th>
+          <th>SLA</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let ticket of tickets">
+          <td>{{ticket.type}}</td>
+          <td>{{ticket.key}}</td>
+          <td>{{ticket.summary}}</td>
+          <td>{{ticket.priority}}</td>
+          <td>N/A</td>
+          <td>{{ticket.status}}</td>
+        </tr>
+        <tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
