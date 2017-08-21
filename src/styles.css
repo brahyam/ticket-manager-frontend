@@ -48,3 +48,19 @@ body {
 .landingLogo {
   max-height: 200px;
 }
+
+.text-white {
+  color: #fff;
+}
+
+.btn-primary {
+  color: white;
+  background-color: #292b2c;
+  border-color: black;
+}
+
+.form-control {
+  border: 0px solid #292b2c;
+  border-bottom-width: 1px;
+  border-radius: 0%;
+}

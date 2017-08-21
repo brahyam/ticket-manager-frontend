@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Ticket} from '../ticket';
-import {TicketService} from '../ticket.service';
+import {Ticket} from '../../models/ticket';
+import {TicketService} from '../../services/ticket.service';
 
 @Component({
   selector: 'app-dashboard',

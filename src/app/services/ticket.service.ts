@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {RestService} from './feathers.service';
+import {FeathersService} from './feathers.service';
 
 import 'rxjs/add/operator/toPromise';
 
-import {Ticket} from './ticket';
+import {Ticket} from '../models/ticket';
 
 
 @Injectable()
@@ -11,7 +11,7 @@ export class TicketService {
 
   private app;
 
-  constructor(private rest: RestService) {
+  constructor(private rest: FeathersService) {
     this.app = rest.app.service('tickets');
   }
 

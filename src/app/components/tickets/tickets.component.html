@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="cursive display-3 d-inline">Tickets</h1>
+      <button type="button" class="btn btn-primary d-inline ml-2 mb-3">Create</button>
+      <table class="table mt-2">
+        <thead>
+        <tr>
+          <th>Type</th>
+          <th>Id</th>
+          <th>Summary</th>
+          <th>Priority</th>
+          <th>SLA</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let ticket of tickets">
+          <td>{{ticket.type}}</td>
+          <td>{{ticket.key}}</td>
+          <td>{{ticket.summary}}</td>
+          <td>{{ticket.priority}}</td>
+          <td>N/A</td>
+          <td>{{ticket.status}}</td>
+        </tr>
+        <tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
