@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col">
       <h1 class="cursive display-3 d-inline">Tickets</h1>
-      <button type="button" class="btn btn-primary d-inline ml-2 mb-3">Create</button>
+      <button type="button" class="btn btn-primary d-inline ml-2 mb-3" (click)="openCreateTicketModal()">Create</button>
       <table class="table mt-2">
         <thead>
         <tr>
@@ -15,7 +15,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let ticket of tickets">
+        <tr *ngFor="let ticket of tickets$ | async">
           <td>{{ticket.type}}</td>
           <td>{{ticket.key}}</td>
           <td>{{ticket.summary}}</td>

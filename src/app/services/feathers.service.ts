@@ -1,46 +1,59 @@
 import {Injectable} from '@angular/core';
 
 import * as feathers from 'feathers/client';
+import * as feathersRx from 'feathers-reactive';
+import * as io from 'socket.io-client';
 import * as hooks from 'feathers-hooks';
-import * as rest from 'feathers-rest/client';
+import * as socketio from 'feathers-socketio/client';
 import * as authentication from 'feathers-authentication-client';
-import * as superagent from 'superagent';
+
+import * as Rx from 'rxjs';
 
 const HOST = 'http://localhost:3030';
 
 @Injectable()
 export class FeathersService {
-  public app: any;
+  private _feathers: any;
+  private _socket: any;
 
   constructor() {
-    this.app = feathers()
-      .configure(rest(HOST).superagent(superagent))
-      .configure(hooks())
-      .configure(authentication({
-        storage: localStorage
-      }));
+    this._socket = io(HOST);       // init socket.io
+
+    this._feathers = feathers();                      // init Feathers
+    this._feathers.configure(hooks());                // add hooks plugin
+    this._feathers.configure(feathersRx(Rx));         // add feathers-reactive plugin
+    this._feathers.configure(socketio(this._socket)); // add socket.io plugin
+    this._feathers.configure(authentication({         // add authentication plugin
+      storage: window.localStorage
+    }));
     console.log('The rest service is configured...');
   }
 
   // expose services
   public service(name: string) {
-    return this.app.service(name);
+    return this._feathers.service(name);
+  }
+
+  // expose logout
+  public logout() {
+    this._feathers.set('user', null);
+    return this._feathers.logout();
   }
 
   // expose authentication
   public authenticate(credentials?): Promise<any> {
-    return this.app.authenticate(credentials)
+    return this._feathers.authenticate(credentials)
       .then(response => {
         console.log('Authenticated!', response);
-        return this.app.passport.verifyJWT(response.accessToken);
+        return this._feathers.passport.verifyJWT(response.accessToken);
       })
       .then(payload => {
         console.log('JWT Payload', payload);
-        return this.app.service('users').get(payload.userId);
+        return this._feathers.service('users').get(payload.userId);
       })
       .then(user => {
-        this.app.set('user', user);
-        console.log('User', this.app.get('user'));
+        this._feathers.set('user', user);
+        console.log('User', this._feathers.get('user'));
       })
       .catch(function (error) {
         console.error('Error authenticating!', error);
@@ -48,12 +61,6 @@ export class FeathersService {
   }
 
   public isLogged() {
-    return !!this.app.get('user');
-  }
-
-  // expose logout
-  public logout() {
-    this.app.set('user', null);
-    return this.app.logout();
+    return !!this._feathers.get('user');
   }
 }

@@ -1,0 +1,68 @@
+<div class="modal-header bg-inverse" *ngIf="isModal">
+  <h3 class="modal-title cursive text-white">Create Ticket</h3>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span class="text-white" aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<form #ticketForm="ngForm" (ngSubmit)="createTicket()">
+  <div class="container modal-body text-center">
+    <div class="form-group row">
+      <label for="product" class="col-sm-2 col-md-2 col-form-label">Product</label>
+      <div class="col-sm-10 col-md-8">
+        <select class="form-control" id="product" [(ngModel)]="selectedProduct" name="product">
+          <option *ngFor="let product of products$ | async" [value]="product._id">
+            {{product.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="type" class="col-sm-2 col-md-2 col-form-label">Type</label>
+      <div class="col-sm-10 col-md-8">
+        <select class="form-control" id="type" [(ngModel)]="selectedType" name="type">
+          <option *ngFor="let type of types" [value]="type">
+            {{type}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="summary" class="col-sm-2 col-md-2 col-form-label">Summary</label>
+      <div class="col-sm-10 col-md-8">
+        <input type="text" class="form-control" id="summary" required [(ngModel)]="inputSummary"
+               name="inputSummary">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="priority" class="col-sm-2 col-md-2 col-form-label">Priority</label>
+      <div class="col-sm-10 col-md-8">
+        <select class="form-control" id="priority" [(ngModel)]="selectedPriority" name="selectedPriority">
+          <option *ngFor="let priority of priorities" [value]="priority">
+            {{priority}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="description" class="col-sm-2 col-md-3 col-form-label">Description</label>
+      <div class="col-sm-10 col-md-7">
+        <textarea type="text" class="form-control" id="description" required [(ngModel)]="inputDescription"
+                  name="inputDescription">
+        </textarea>
+      </div>
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="errors">
+      {{errors}}
+    </div>
+    <div class="form-group row" *ngIf="!isModal">
+      <div class="offset-sm-2 col-sm-10 offset-md-1 col-md-1">
+        <button type="button" class="btn btn-primary" (click)="createTicket()">Create Ticket</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer" *ngIf="isModal">
+    <button type="submit" class="btn btn-primary">Create Ticket</button>
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Close click')">Close</button>
+  </div>
+</form>

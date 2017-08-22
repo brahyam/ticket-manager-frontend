@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
-import {Router} from '@angular/router';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {LoginComponent} from "../login/login.component";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LoginComponent} from '../login/login.component';
 
 @Component({
   selector: 'app-nav',
@@ -13,7 +12,7 @@ export class NavComponent implements OnInit {
 
   public isCollapsed = true;
 
-  constructor(private router: Router, private auth: AuthService, private modalService: NgbModal) {
+  constructor(private auth: AuthService, private modalService: NgbModal) {
   }
 
   ngOnInit() {

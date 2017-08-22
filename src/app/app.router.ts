@@ -8,6 +8,7 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {AuthGuard} from './guards/auth.guard';
 import {TicketsComponent} from './components/tickets/tickets.component';
 import {ProductsComponent} from './components/products/products.component';
+import {CreateTicketComponent} from './components/create-ticket/create-ticket.component';
 
 export const router: Routes = [
   {path: '', redirectTo: 'landing', pathMatch: 'full'},
@@ -17,6 +18,7 @@ export const router: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: 'tickets', component: TicketsComponent, canActivate: [AuthGuard]},
+  {path: 'tickets/create', component: CreateTicketComponent, canActivate: [AuthGuard]},
   {path: 'products', component: ProductsComponent, canActivate: [AuthGuard]}
 ];
 

@@ -11,7 +11,6 @@ import {OurServicesComponent} from './components/our-services/our-services.compo
 import {LandingComponent} from './components/landing/landing.component';
 import {LoginComponent} from './components/login/login.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
-import {TicketService} from './services/ticket.service';
 import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import {AuthService} from './services/auth.service';
@@ -19,6 +18,8 @@ import {FeathersService} from './services/feathers.service';
 import {AuthGuard} from './guards/auth.guard';
 import {TicketsComponent} from './components/tickets/tickets.component';
 import {ProductsComponent} from './components/products/products.component';
+import {CreateTicketComponent} from './components/create-ticket/create-ticket.component';
+import {DataService} from './services/data.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {ProductsComponent} from './components/products/products.component';
     LoginComponent,
     DashboardComponent,
     TicketsComponent,
-    ProductsComponent
+    ProductsComponent,
+    CreateTicketComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,7 @@ import {ProductsComponent} from './components/products/products.component';
     NgbModule.forRoot(),
     routes
   ],
-  providers: [TicketService, FeathersService, AuthService, AuthGuard, NgbActiveModal],
+  providers: [FeathersService, AuthService, DataService, AuthGuard, NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule {

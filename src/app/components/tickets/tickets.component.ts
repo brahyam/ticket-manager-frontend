@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Ticket} from '../../models/ticket';
-import {TicketService} from '../../services/ticket.service';
+import {Observable} from 'rxjs/Observable';
+import {DataService} from '../../services/data.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CreateTicketComponent} from '../create-ticket/create-ticket.component';
 
 @Component({
   selector: 'app-tickets',
@@ -9,14 +12,20 @@ import {TicketService} from '../../services/ticket.service';
 })
 export class TicketsComponent implements OnInit {
 
-  tickets: Ticket[];
+  tickets$: Observable<Ticket[]>;
 
-  constructor(private ticketService: TicketService) {
+  constructor(private data: DataService, private modalService: NgbModal) {
+    // get messages from data service
+    this.tickets$ = data.tickets$()
+    // our data is paginated, so map to .data
+      .map(m => m.data);
   }
 
   ngOnInit() {
-    this.ticketService.getTickets()
-      .then(tickets => this.tickets = tickets);
   }
 
+  openCreateTicketModal() {
+    const modalRef = this.modalService.open(CreateTicketComponent);
+    modalRef.componentInstance.isModal = true;
+  }
 }

@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login() {
+  logIn() {
     console.log('Trying to log in');
     this.authService.logIn({
       strategy: 'local',
@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
       password: this.password
     })
       .then(user => {
-        console.log('Logged ', user);
         this.activeModal.close();
         this.router.navigate(['/tickets']);
       })
@@ -36,10 +35,5 @@ export class LoginComponent implements OnInit {
         console.error('Failed Log in, error:', error);
         this.errors = error.message;
       });
-  }
-
-  logout() {
-    this.authService.logOut();
-    this.router.navigate(['/']);
   }
 }
